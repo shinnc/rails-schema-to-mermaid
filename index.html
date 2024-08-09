@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rails Schema to Mermaid ERD</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+</head>
+<body class="p-5 flex flex-col">
+    <h1 class="text-2xl font-bold mb-4">Rails Schema to Mermaid ERD</h1>
+
+    <div class="flex flex-grow">
+        <div class="w-full md:w-1/3 p-2">
+            <textarea id="schema-input" class="w-full h-full p-2 border border-gray-300 rounded" placeholder="Paste your schema.rb content here"></textarea>
+            <button id="generate" class="mt-2 bg-blue-500 text-white py-2 px-4 rounded">Generate ERD</button>
+        </div>
+
+        <div class="w-full md:w-2/3 p-2 flex flex-col">
+            <div class="sm:hidden">
+                <label for="tabs" class="sr-only">Select a tab</label>
+                <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                    <option value="diagram">Rendered Diagram</option>
+                    <option value="code">Raw Mermaid Code</option>
+                </select>
+            </div>
+            <div class="hidden sm:block">
+                <nav class="flex space-x-4" aria-label="Tabs">
+                    <a href="#" id="tab-diagram" class="tab rounded-md px-3 py-2 text-sm font-medium bg-indigo-100 text-indigo-700">Rendered Diagram</a>
+                    <a href="#" id="tab-code" class="tab rounded-md px-3 py-2 text-sm font-medium text-gray-500 hover:text-gray-700">Raw Mermaid Code</a>
+                </nav>
+            </div>
+
+            <div id="tab-content" class="tab-content border border-gray-300 p-2 flex-grow">
+                <div id="diagram-content" class="flex-grow">
+                    <div class="zoom-buttons mb-2">
+                        <button id="zoom-in" class="bg-green-500 text-white py-1 px-3 rounded">Zoom In</button>
+                        <button id="zoom-out" class="bg-red-500 text-white py-1 px-3 rounded">Zoom Out</button>
+                    </div>
+                    <div id="mermaid" class="border border-gray-300 p-2 overflow-auto flex-grow">
+                        <pre class="mermaid" id="mermaid-output"></pre>
+                    </div>
+                </div>
+                <div id="code-content" class="hidden">
+                    <pre id="mermaid-raw"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      if (typeof mermaid == 'undefined') {
+        document.write('<script src="js/mermaid.min.js"><\/script>');
+      }
+    </script>
+    <script src="js/mermaid-diagram.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
